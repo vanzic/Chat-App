@@ -18,11 +18,6 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('receiveMessage', message); // Send to others
     });
 
-    // Listen for user typing notifications
-    socket.on('userTyping', () => {
-        socket.broadcast.emit('userTyping'); // Notify others that someone is typing
-    });
-
     socket.on('disconnect', () => {
         console.log('A user disconnected');
     });
