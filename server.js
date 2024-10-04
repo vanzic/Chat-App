@@ -1,34 +1,34 @@
 // server.js
-
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 
-// Initialize express and create an HTTP server
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Serve the frontend files (HTML, CSS, JS)
-app.use(express.static('public'));
+app.use(express.static('public')); // Serve static files from the public directory
 
-// Handle WebSocket connection
 io.on('connection', (socket) => {
-  console.log('A user connected');
+    console.log('A user connected');
 
-  // Listen for chat messages
-  socket.on('chatMessage', (msg) => {
-    io.emit('chatMessage', msg); // Broadcast message to all clients
-  });
+    // Listen for the sendMessage event
+    socket.on('sendMessage', (message) => {
+        // Broadcast the message to all clients except the sender
+        socket.broadcast.emit('receiveMessage', message); // Send to others
+    });
 
-  // Handle user disconnecting
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
+    // Listen for user typing notifications
+    socket.on('userTyping', () => {
+        socket.broadcast.emit('userTyping'); // Notify others that someone is typing
+    });
+
+    socket.on('disconnect', () => {
+        console.log('A user disconnected');
+    });
 });
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+server.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
 });
