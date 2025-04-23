@@ -8,7 +8,24 @@
     <title>Chat App</title>
 </head>
 <body>
-
+    <div class="sidebar">
+        <div class="user-profile">
+            <div class="avatar-container">
+                <img id="user-avatar" src="https://ui-avatars.com/api/?background=0088cc&color=fff" alt="User Avatar">
+                <div class="status-indicator online"></div>
+            </div>
+            <div class="user-info">
+                <h3 id="user-name">Loading...</h3>
+                <p id="user-email">Loading...</p>
+            </div>
+            <button id="edit-profile" class="icon-button" title="Edit Profile">
+                <i class="fas fa-edit"></i>
+            </button>
+        </div>
+        <div class="sidebar-divider"></div>
+        <h3>Online Users</h3>
+        <ul id="user-list"></ul>
+    </div>
     
     <div id="username-popup" class="popup">
         <div class="popup-glass">
@@ -20,8 +37,47 @@
         </div>
     </div>
 
+    <div id="profile-popup" class="popup">
+        <div class="popup-glass">
+            <div class="popup-content">
+                <h2>Edit Profile</h2>
+                <div class="avatar-upload">
+                    <img id="profile-avatar" src="https://ui-avatars.com/api/?background=0088cc&color=fff" alt="Profile Avatar">
+                </div>
+                <input type="text" id="profile-username" placeholder="Username" />
+                <input type="email" id="profile-email" placeholder="Email" disabled />
+                <button id="save-profile">Save Changes</button>
+                <button id="cancel-profile" class="secondary-button">Cancel</button>
+                <button id="logout-button" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-content">
+            <h1>Welcome to Chat App</h1>
+            <p>Select a user from the sidebar to start chatting</p>
+            <div class="welcome-icons">
+                <i class="fas fa-comments"></i>
+                <i class="fas fa-paper-plane"></i>
+                <i class="fas fa-users"></i>
+            </div>
+        </div>
+    </div>
+
     <div class="chat-container" id="chat-container" style="display: none;"> 
-        <h1 class="chat-title">Chat Room</h1> 
+        <div class="chat-header">
+            <button id="back-button" class="back-button" title="Back to Users">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="chat-title">Chat Room</h1>
+            <button id="clear-chat" class="clear-chat-btn" title="Clear Chat">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
         <div class="messages" id="messages"></div>
 
         <div class="input-container"> 
@@ -33,6 +89,6 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
